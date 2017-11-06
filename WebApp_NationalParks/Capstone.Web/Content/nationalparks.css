@@ -1,0 +1,121 @@
+﻿body {
+    width: 90%;
+    font-family: georgia;
+    margin: 0 auto;
+}
+
+.navigationlink {
+    display: inline-block;
+    margin-right: 50px;
+    margin-bottom: 30px;
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+
+.inlineblock {
+    display: inline-block;
+    vertical-align: text-top;
+    align-content: center;
+}
+
+.parkname {
+    font-weight: bold;
+    font-size: 34px;
+    font-family: fantasy;
+}
+
+#logoinheader {
+    width: 200px;
+    height: auto;
+    margin-top: 80px;
+    margin-left: 10px;
+}
+
+.parkdescription {
+    width: 500px;
+}
+
+.parkimageindex {
+    margin-right: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.parkstate {
+    font-style: italic;
+    font-size: 20px;
+}
+
+h1 {
+    font-size: 100px;
+    width: 800px;
+    vertical-align: bottom;
+    font-family: monospace;
+    margin-left: 20px;
+}
+
+.detailpic {
+    resize: both;
+    width: 50px;
+    height: auto;
+}
+
+.forecastheading {
+    margin-top: 50px;
+    margin-bottom: 30px;
+    font-size: 30px;
+}
+
+.radiobutton1 {
+    margin-top: 10px;
+}
+
+.radiobutton2 {
+    margin-left: 18px;
+    margin-bottom: 10px;
+}
+
+.unitsubmit {
+    margin-bottom: 10px;
+}
+
+.center {
+    text-align: center;
+}
+
+navlinks {
+    margin-bottom: 30px;
+}
+
+header {
+    margin-bottom: -60px;
+}
+
+.survey {
+    margin-left: 38px;
+}
+
+.detailcontent {
+    margin-left: 38px;
+    margin-bottom: 100px;
+}
+
+.detaillist {
+    font-size: 24px;
+    margin-top: 70px;
+}
+
+.quote {
+    font-size: 24px
+}
+
+.quotesource {
+    font-size: 20px
+}
+
+.parkimagemostpop {
+    margin-top: 40px;
+    margin-right: 50px;
+    margin-bottom: 200px;
+}

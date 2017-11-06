@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "MostPopPark";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Capstone.Web.Models
+@using Capstone.Web.String_Formatting
+@model Park
+<h2 id="MostPopHeader">Survey Results To Date  :  The Most Popular Park is...</h2>
+
+<div class="inlineblock">
+    @{string imgName = Model.ParkCode.ToLower() + ".jpg"; }
+    <a href="@Url.Action("Detail", "Home", Model)"><img class="parkimageindex" src="~/Content/img/parks/@imgName" /></a>
+
+    @*<img class="parkimagemostpop" src="~/Content/img/parks/@imgName" />*@
+</div>
+<div class="inlineblock">
+    <a href="@Url.Action("Detail", "Home", Model)"><p class="parkname">@Model.Name</p></a>
+    @*<p class="parkname">@Model.Name</p>*@
+
+    <p class="parkstate">@Model.State</p>
+    <p class="parkdescription">@Model.Description</p>
+</div>
+
+

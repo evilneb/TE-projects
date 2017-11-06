@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Survey";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@using Capstone.Web.Models
+@using Capstone.Web.Dal
+
+@model Survey
+
+<div class="survey">
+    <h2 id="SurveyHeader">Survey</h2>
+    @using (Html.BeginForm("Survey", "Home", FormMethod.Post))
+    {
+        List < SelectListItem > names = new List<SelectListItem>();
+        List<Park> parks = new List<Park>();
+        if (Session["parks"] != null)
+        {
+            parks = (List<Park>)Session["parks"];
+        }
+
+        foreach (Park x in parks)
+        {
+            names.Add(new SelectListItem() { Text = x.Name, Value = x.ParkCode });
+        }
+
+        <div class="formInputGroup">
+            @Html.Label("ParkCode", "Choose a park")
+            @Html.DropDownListFor(Model => Model.ParkCode, names)
+        </div>
+        <div class="formInputGroup">
+            @Html.Label("EmailAddress", "Email Address")
+            @Html.EditorFor(m => m.EmailAddress)
+            @Html.ValidationMessageFor(m => m.EmailAddress)
+        </div>
+        <div class="formInputGroup">
+            @Html.Label("State", "State")
+            @Html.TextBoxFor(m => m.State)
+            @Html.ValidationMessageFor(m => m.State)
+        </div>
+            <div class="formInputGroup">
+                @Html.Label("ActivityLevel", "Activity Level")
+                @Html.DropDownListFor(Model => Model.ActivityLevel, Survey.ActivityLevels)
+            </div>
+
+            <button class="formSubmitButton">Submit</button>
+    }
+
+</div>

@@ -1,0 +1,106 @@
+﻿@using Capstone.Web.Models;
+@using Capstone.Web.Dal;
+@using Capstone.Web.String_Formatting;
+
+@{
+    ViewBag.Title = "Survey";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Park
+
+@{
+    List<DayForecast> forecast = Session["forecast"] as List<DayForecast>;
+}
+<div class="detailcontent">
+    
+
+<h2 id="DetailHeader">@Model.Name</h2>
+<p class="parkstate">Located in @Model.State, founded in @Model.YearFounded</p>
+    @{ string imgName = Model.ParkCode.ToLower() + ".jpg"; }
+    <div class="inlineblock">
+        <img class="parkimageindex" src="~/Content/img/parks/@imgName" />
+    </div>
+    <div class="inlineblock">
+        <ul class="detaillist">
+            <li>Entry Fee: @Formatting.Money(Model.EntryFee)</li>
+            <li>Annual Visitor Count: @Formatting.CommaInteger(Model.AnnualVisitorCount)</li>
+            <li>Number of Campsites: @Formatting.CommaInteger(Model.NumCampsites)</li>
+            <li>Elevation: @Formatting.CommaInteger(Model.Elevation)</li>
+            <li>Acreage: @Formatting.CommaInteger(Model.Acreage)</li>
+            <li>Miles of Trail: @Formatting.CommaInteger(Model.AnnualVisitorCount)</li>
+            <li>Climate: @Model.Climate</li>
+            <li>Number of Animal Species: @Formatting.CommaInteger(Model.NumAnimalSpecies)</li>
+        </ul>
+    </div>
+    <p class="quote">@Model.Quote<div class="quotesource" style="font-style:italic">--@Model.QuoteSource</div></p>
+
+
+
+
+    @*<div class="container">
+        <div class="row">
+            <div class="col-md-1"></div>*@
+    @{
+        bool convert = false;
+        string temp = Session["convertToCelsius"] as string;
+        if (temp == null)
+        {
+            convert = false;
+        }
+        else if (temp == "c")
+        {
+            convert = true;
+        }
+    }
+    <div class="forecastheading">Five Day Weather Forecast</div>
+    <hr />
+    @using (Html.BeginForm("Temp", "Home", FormMethod.Get))
+            {
+        <div class="radiobutton1">
+            @Html.Label("Farenheit")
+            @Html.RadioButton("Temp", "f")
+        </div>
+                <div class="radiobutton2">
+                    @Html.Label("Celsius")
+                    @Html.RadioButton("Temp", "c")
+                </div>
+                <input class="unitsubmit" type="submit" value="Save" />
+    }
+    <hr />
+    <table style="width:100%">
+
+        <tr style="width:100%">
+            <td class="center" style="width:20%">1 Day Out</td>
+            <td class="center" style="width:20%">2 Days Out</td>
+            <td class="center" style="width:20%">3 Days Out</td>
+            <td class="center" style="width:20%">4 Days Out</td>
+            <td class="center" style="width:20%">5 Days Out</td>
+        </tr>
+        <tr style="width:100%">
+            @foreach (DayForecast f in forecast)
+            {
+                <td style="width:20%; vertical-align:top">
+                    @{
+                        string weatherPic = f.Forecast + ".png";
+                        weatherPic = weatherPic.Replace(" ", String.Empty);
+                    }
+
+                    <ul style="list-style: none">
+                        <li><img style="width:100px; height:auto;" src="~/Content/img/weather/@weatherPic" /></li>
+                        <li>@f.Forecast.ToUpper()</li>
+                        <li>Low: @Conversion.TempConversion(convert, f.Low), High: @Conversion.TempConversion(convert, f.High)</li>
+                        @foreach (string s in f.Recommendation)
+                        {
+                            <li>@s</li>
+                        }
+                    </ul>
+                </td>
+                        }
+        </tr>
+    </table>
+</div>
+@*<div class="col-md-1"></div>
+        </div>
+    </div>*@
+
+

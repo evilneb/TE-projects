@@ -1,0 +1,35 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <meta charset="UTF-8">
+    <title>National Parks Geek</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="bootstrap.min.css" />
+    <script src="bootstrap.min.js"></script>
+    <link rel="stylesheet" href="~/Content/nationalparks.css">
+</head>
+
+<body>
+    <header>
+        
+        @*<img id="logoinheader" class="inlineblock" src="~/Content/img/hikerLOGO.jpg" />*@
+
+        <img id="logoinheader" class="inlineblock" src="~/Content/img/boots.jpg" />
+        <h1 class="inlineblock">National Park Geek</h1>
+    </header>
+    <nav>
+        
+        <ul>
+            <li class="navigationlink" id="IndexLink">@Html.ActionLink("Index", "Index", "Home")</li>
+            <li class="navigationlink" id="SurveyLink">@Html.ActionLink("Take Our Survey", "Survey", "Home")</li>
+        </ul>
+    </nav>
+
+    @RenderBody()
+
+</body>
+</html>
