@@ -1,0 +1,57 @@
+﻿@using Capstone.Web.Models
+
+@{
+    ViewBag.Title = "AddDatasetInfo";
+}
+
+@model List<DatasetInfo>
+
+<h2 class="move-head" id="DataSetInfoHead">Modify Dataset Info</h2>
+<div class="container-fluid form-create-template">
+    <hr class="form-line" />
+
+    @using (Html.BeginForm("DatasetInfo", "ExperimentForm", FormMethod.Post))
+    {
+        <table class="datasetInfoTable">
+            <thead class="datasetInfoHead">
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Date Created</th>
+                    <th>Partner</th>
+                    <th>Formulation Description</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            @for (int i = 0; i < Model.Count; i++)
+                {
+                <tr>
+                    <td class="cellUpdate" hidden>@Html.TextAreaFor(model => model[i].Changed)</td>
+                    <td class="datasetIDfield">@Model[i].ExperimentID</td>
+                    <td>@Model[i].ExperimentType</td>
+                    <td>@Model[i].CreatedDate.ToShortDateString()</td>
+                    <td>
+                        @Html.Label("PartnerName", "")
+                        @Html.EditorFor(Model => Model[i].PartnerName, new { @Value = Model[i].PartnerName })
+                    </td>
+                    <td>
+                        @Html.Label("FormulationDescription", "")
+                        @Html.TextAreaFor(Model => Model[i].FormulationDescription, new { @Value = Model[i].FormulationDescription })
+                    </td>
+                    <td>
+                        @Html.Label("Notes", "")
+                        @Html.TextAreaFor(Model => Model[i].Notes, new { @Value = Model[i].Notes })
+                    </td>
+                </tr>
+                    @Html.HiddenFor(Model => Model[i].ExperimentID);
+                @Html.HiddenFor(Model => Model[i].ExperimentType);
+                @Html.HiddenFor(Model => Model[i].CreatedDate);
+                }
+        </table>
+
+
+
+            <button class="feedback-btn-margin form-btn-submit">Save Changes</button>
+    }
+
+</div>

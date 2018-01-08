@@ -1,0 +1,596 @@
+﻿/*---------------------------*/
+/* Home/Index (login) styles*/
+/*---------------------------*/
+
+*, :after, :before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none
+}
+
+body {
+    height: 100%;
+    font: 600 16px/18px;
+    font-family: 'Ropa Sans', sans-serif;
+}
+
+.background-img {
+    height: 100vh;
+    background-image: url('images/Soybean-Field.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #464646;
+}
+
+.clearfix:after, .clearfix:before {
+    content: '';
+    display: table
+}
+
+.clearfix:after {
+    clear: both;
+    display: block
+}
+
+.fa-custom {
+    color: rgba(255,255,255,.5);
+    position: relative;
+    top: -8px;
+    padding-right: 5px;
+}
+
+.input {
+    border: none;
+    font-family: 'Ropa Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.5em;
+    padding: 0;
+    -webkit-appearance: none;
+}
+
+.login-button {
+    color: #fff;
+    font-size: 20px;
+    width: 100%;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    background: rgba(255,255,255,.4);
+}
+
+.login-error-message {
+    color: red;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.login-form {
+    min-height: 345px;
+    position: relative;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    margin-bottom: 15px;
+}
+
+.login-html {
+    border-radius: 3px;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    padding: 90px 70px 50px 70px;
+    background: rgba(0,0,0,.70);
+}
+
+.login-input {
+    color: #ffffff;
+    font-size: 18px;
+    width: 100%;
+    border: none;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 3px;
+    background: rgba(255,255,255,.1);
+}
+
+.login-logo {
+    color: #ffffff;
+    text-align: right;
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.login-sign-in {
+    padding-bottom: 5px;
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.login-table {
+    width: 100%;
+    border: none;
+    border-collapse: collapse;
+    position: relative;
+    left: -16px;
+}
+
+.login-td {
+    border: none;
+    outline: none;
+}
+
+.login-wrap {
+    width: 100%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    max-width: 525px;
+    min-height: 670px;
+    position: relative;
+    box-shadow: 0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+}
+
+
+/*---------------------------*/
+/* _Layout.cshtml styles*/
+/*---------------------------*/
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
+    content: '\e259';
+    display: block;
+    position: absolute;
+    right: 20px;
+    font-family: 'Glyphicons Halflings';
+    font-size: 0.6em;
+}
+
+a[aria-expanded="true"]::before {
+    content: '\e260';
+}
+
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#content {
+    padding: 20px;
+    transition: all 0.3s;
+    position: relative;
+    display: inline-block;
+}
+
+#dismiss {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    /* top right corner of the sidebar */
+    top: 10px;
+    right: 10px;
+}
+
+.hr-custom {
+    margin: 10px 18px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+.icon-spaced {
+    margin-right: 5px;
+}
+
+.logout {
+    color: #023F5C;
+    font-size: 16px;
+    padding: 5px;
+}
+
+.navbar {
+    position: relative;
+    min-height: 25px;
+    margin-bottom: 0px;
+}
+
+.navbar-custom {
+    -webkit-box-shadow: 0px 1px 1px -2px #808080;
+    -moz-box-shadow: 0px 1px 1px -2px #808080;
+    box-shadow: 0px 1px 3px #808080;
+    border-radius: 0px;
+    background-color: #ffffff;
+}
+
+#sidebar {
+    min-width: 235px;
+    max-width: 235px;
+    height: 120vh;
+    background: #044B6E;
+    color: #fff;
+    transition: all 0.3s;
+    position: relative;
+    display: inline-block;
+    top: -37px;
+    /* top layer */
+    z-index: 9999;
+}
+
+    #sidebar .sidebar-header span {
+        display: none;
+    }
+
+    #sidebar.active .sidebar-header img {
+        width: 50px;
+        position: relative;
+        left: -19px;
+    }
+
+    #sidebar.active {
+        min-width: 80px;
+        max-width: 80px;
+        text-align: center;
+        margin-left: -2px;
+        height: 100vh !important;
+        position: relative;
+        display: inline-block;
+    }
+
+        /* Changing the arrow position to bottom center position, 
+        translateX(50%) works with right: 50% 
+        to accurately  center the arrow */
+        #sidebar.active a[aria-expanded="false"]::before, #sidebar.active a[aria-expanded="true"]::before {
+            top: auto;
+            bottom: 5px;
+            right: 50%;
+            transform: translateX(50%);
+        }
+
+        #sidebar.active .fixed {
+            position: fixed;
+        }
+
+        #sidebar.active ul li a {
+            padding: 20px 10px;
+            text-align: center;
+            font-size: 0.85em;
+        }
+
+            #sidebar.active ul li a span {
+                display: none;
+            }
+
+            #sidebar.active ul li a i {
+                margin-right: 0;
+                display: block;
+                font-size: 2.8em;
+                margin-bottom: 5px;
+            }
+
+        /* Same dropdown links padding*/
+        #sidebar.active ul ul a {
+            padding: 10px !important;
+        }
+
+    #sidebar ul.components {
+        padding: 5px 10px;
+    }
+
+    #sidebar ul li a {
+        text-align: left;
+        padding: 10px;
+        font-size: 1.15em;
+        display: block;
+    }
+
+        #sidebar ul li a:hover {
+            color: #0C89C5;
+            background: #fff;
+        }
+
+    #sidebar ul li.active > a, a[aria-expanded="true"] {
+        color: #fff;
+        background: #012C41;
+    }
+
+#sidebarCollapse {
+    width: 35px;
+    height: 35px;
+    background: #f5f5f5;
+}
+
+    #sidebarCollapse span {
+        width: 80%;
+        height: 2px;
+        margin: 0 auto;
+        display: block;
+        background: #555;
+        transition: all 0.8s cubic-bezier(0.810, -0.330, 0.345, 1.375);
+    }
+
+        #sidebarCollapse span:first-of-type {
+            /* rotate first one */
+            transform: rotate(45deg) translate(2px, 2px);
+        }
+
+        #sidebarCollapse span:nth-of-type(2) {
+            /* second one is not visible */
+            opacity: 0;
+        }
+
+        #sidebarCollapse span:last-of-type {
+            /* rotate third one */
+            transform: rotate(-45deg) translate(1px, -1px);
+        }
+
+    #sidebarCollapse.active span {
+        /* no rotation */
+        transform: none;
+        /* all bars are visible */
+        opacity: 1;
+        margin: 5px auto;
+    }
+
+    #sidebarCollapse span:first-of-type,
+    #sidebarCollapse span:nth-of-type(2),
+    #sidebarCollapse span:last-of-type {
+        transform: none;
+        opacity: 1;
+        margin: 5px auto;
+    }
+
+    #sidebarCollapse.active span {
+        margin: 0 auto;
+    }
+
+        #sidebarCollapse.active span:first-of-type {
+            transform: rotate(45deg) translate(2px, 2px);
+        }
+
+        #sidebarCollapse.active span:nth-of-type(2) {
+            opacity: 0;
+        }
+
+        #sidebarCollapse.active span:last-of-type {
+            transform: rotate(-45deg) translate(1px, -1px);
+        }
+
+.sidebar-header {
+    margin: 35px;
+    text-align: center;
+}
+
+ul ul a {
+    font-size: 1.0em !important;
+    padding-left: 30px !important;
+    background: #023F5C;
+}
+
+.username {
+    color: #023F5C;
+    font-weight: 400;
+    font-size: 16px;
+    margin-top: 7px;
+}
+
+#wrapper {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+
+        #sidebar.active {
+            margin-left: 0;
+        }
+}
+
+@media (min-width: 768px) {
+    /*bootstrap override*/
+    .navbar-nav li a {
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+}
+
+
+/*---------------------------*/
+/*Experiment/Admin/User Forms*/
+/*---------------------------*/
+
+.admin-btn-margin {
+    margin: 10px 0px 25px;
+}
+
+.feedback-btn-margin {
+    margin: 45px 0px;
+}
+
+.feedback-text {
+    font-size: 18px;
+}
+
+.feedback-view {
+    margin-left: 45px;
+    padding: 25px 0px 0px 0px;
+}
+
+.form-btn {
+    margin-top: 9px;
+    box-shadow: #666666;
+    border: none !important;
+}
+
+    .form-btn:hover {
+        background: #f0f0f0;
+        text-decoration: none;
+    }
+
+.form-btn-submit {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 1px 3px #666666;
+    -moz-box-shadow: 0px 1px 3px #666666;
+    box-shadow: 0px 1px 3px #666666;
+    color: #fff;
+    font-size: 20px;
+    background: #044B6E;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    border: none !important;
+}
+
+    .form-btn-submit:hover {
+        background: #056695;
+        color: #fff;
+        text-decoration: none;
+    }
+
+.form-cancel-spacing {
+    margin-top: 50px;
+}
+
+.form-create-template {
+    margin-left: 45px;
+    padding: 25px 0px 0px 0px;
+    position: relative;
+    top: -60px;
+    font-size: 1.1em;
+}
+
+.form-input-spacing {
+    margin-top: 15px;
+}
+
+h2.move-head {
+    position: relative;
+    top: -60px;
+    left: 60px;
+}
+
+hr.form-line {
+    position: relative;
+    top: -25px;
+    border-top: 1px solid #eee;
+    margin-bottom: 10px;
+}
+
+hr.form-end-line {
+    border-top: 2px solid #eee;
+    margin-bottom: 10px;
+}
+
+.modify-dataset {
+    border-collapse: collapse;
+    margin-left: 45px;
+    padding: 25px 0px 0px 0px;
+    position: relative;
+    top: -60px;
+    font-size: 1.1em;
+}
+
+.textbox {
+    width: 600px;
+}
+
+.user-checkboxes {
+    margin: -20px 0px 30px;
+}
+
+.xp-btn-margin {
+    margin: 45px 500px 25px !important;
+}
+
+
+/*---------------------------*/
+/*Other CSS*/
+/*---------------------------*/
+
+.button {
+    border: 0;
+    outline: none;
+}
+
+#cfuSearchFields {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.dataentryheaders > th {
+    border: 1px solid black;
+    text-align: center;
+}
+
+.dataentrytable th, td {
+    border: 1px solid black;
+    text-align: center;
+}
+
+.dilutionrow {
+    border: none;
+    text-align: left;
+}
+
+#datasetexploration {
+    border-collapse: collapse;
+}
+
+    #datasetexploration tr td,
+    #datasetexploration thead tr td {
+        border: none;
+    }
+
+div table.datasetInfoTable {
+    padding: 20px;
+    border-width: 10px;
+    width: inherit;
+}
+
+.error-message {
+    color: red;
+}
+
+.focus {
+    border: 3px solid #AA88FF;
+    background-color: #FFEEAA;
+}
+
+input[type='checkbox'] {
+    margin-top: 20px;
+    margin-right: 30px;
+    margin-bottom: 20px;
+}
+
+#storageDEh4 {
+    padding-left: 580px;
+}
+
+table.datasetInfoTable thead.datasetInfoHead th {
+    text-align: center;
+}
+
+table.datasetInfoTable td.datasetIDfield {
+    width: 40px;
+}
+
+
+/*Help with Login thanks to codepen.io https://codepen.io/khadkamhn/pen/ZGvPLo/ */
+/*Help with Sidebar thanks to https://bootstrapious.com/p/bootstrap-sidebar */
+

@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Confirmation Message";
+}
+
+@using Capstone.Web.Models
+@model User
+
+
+<div class="container feedback-view row" id="successmessage1">
+    <h3 id="CreateUserSuccessHead">New User Confirmation</h3>
+    <p class="feedback-text">
+        @Model.Username has been added<br />
+    </p>
+    <div class="feedback-btn-margin" id="successlink1">
+        @Html.ActionLink("Add another user", "CreateUser", "User", null, new { @class = "form-btn-submit" })
+    </div>
+</div>
+

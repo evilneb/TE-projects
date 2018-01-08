@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Create New Dataset Form</h2>
+
+<div>
+    <a href="@Url.Action("CreateStorageStabilityForm", "ExperimentForm")" id="">Create Storage Stability Form</a>
+</div>
+<div>
+    <a href="@Url.Action("CreateBeadStabilityForm", "ExperimentForm")" id="">Create Bead Stability Form</a>
+</div>
+<div>
+    <a href="@Url.Action("CreateChemCompatForm", "ExperimentForm")" id="">Create Chem Compatibility Form</a>
+</div>
+<div>
+    @Html.ActionLink("Return to Researcher Options", "ResearcherDetail", "User") 
+</div>
+
+

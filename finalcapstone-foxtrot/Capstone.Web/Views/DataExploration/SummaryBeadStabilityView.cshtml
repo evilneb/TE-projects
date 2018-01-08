@@ -1,0 +1,150 @@
+﻿@using Capstone.Web.Models.DataExplorationModels;
+@using System.Collections.Generic;
+@model List<List<BeadStabilityRowData>>
+
+@{
+    string hourDil = ViewData["hour"] as string;
+    ViewBag.Title = "SummaryBeadStabilityView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#bssummaryData').DataTable();
+    });
+</script>
+<h2>Summary Bead Stability</h2>
+<h3>Strain: @Model[0][0].Strain Dilution Hours: @hourDil</h3>
+
+<table id="bssummaryData">
+    <thead>
+        @* Header of summary table below *@
+        <tr>
+            <th>Age of Beads: </th>
+            @{List<int> ageofBeads = new List<int>();}
+            @foreach (List<BeadStabilityRowData> subList in Model)
+            {
+                if (ageofBeads.Contains(Convert.ToInt32(subList[0].BeadAge)))
+                {
+                    continue;
+                }
+                else
+                {
+                    ageofBeads.Add(Convert.ToInt32(subList[0].BeadAge));
+                }
+            }
+            @{ageofBeads.Sort(); }
+
+            @foreach (int element in ageofBeads)
+            {
+                <th>
+                    @element
+                </th>
+            }
+        </tr>
+    </thead>
+    @* Body of summary table below *@
+    @{ int lastRowIndex = CFUSummaryDataCalculationForBeadStability.FindLengthOfSublistAmountsPerSublist(Model[0]);
+        int subListCount = 0;
+    }
+
+    @for (int i = 0; i < Model.Count; i += subListCount)
+    {
+        <tr>
+            <td>
+                @Model[i][0].FormulationTitration
+            </td>
+            @for (int j = i; j < ageofBeads.Count + i; j++)
+            {
+                double averageCFUForSubList = 0;
+                int countOfAdditions = 0;
+
+                if (!Model[j][lastRowIndex].Dil_1HR_Zero.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_1HR_Zero) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_1HR_Zero);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_1HR_One.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_1HR_One) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_1HR_One);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_1HR_Two.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_1HR_Two) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_1HR_Two);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_1HR_Three.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_1HR_Three) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_1HR_Three);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_1HR_Four.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_1HR_Four) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_1HR_Four);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_1HR_Five.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_1HR_Five) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_1HR_Five);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_1HR_Six.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_1HR_Six) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_1HR_Six);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_1HR_Seven.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_1HR_Seven) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_1HR_Seven);
+                        countOfAdditions++;
+                    }
+                }
+                if (countOfAdditions == 0)
+                {
+                    <td>0</td>
+                }
+                else
+                {
+                    double printValue = (double)((double)averageCFUForSubList / (double)countOfAdditions);
+                    string valueToPrint = printValue.ToString("0.00E0");
+                    <td>
+                        @valueToPrint
+                    </td>
+
+
+
+                }
+                subListCount++;
+            }
+        </tr>
+    }
+</table>
+
+@Html.ActionLink("Return to Bead Stability Data Exploration", "BeadStability", "DataExploration")

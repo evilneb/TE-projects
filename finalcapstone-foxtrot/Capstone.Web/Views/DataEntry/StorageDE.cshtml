@@ -1,0 +1,103 @@
+﻿@model List<Capstone.Web.Models.DataEntryModels.DE_StorageStability>
+@{
+    ViewBag.Title = "StorageDE";
+}
+
+<h2>Data Entry: Storage Stability</h2>
+
+
+
+@using (Html.BeginForm("DataEntryByDatasetId", "DataEntry", FormMethod.Post))
+{
+
+    <div>
+        <label>View One Dataset By ID</label>
+        <input type="text" name="userDatasetId" id="IP" />
+        <button class="formSubmitButton">Go</button>
+        
+    </div>
+}
+    
+
+<br />
+
+@using (Html.BeginForm("StorageDE", "DataEntry", FormMethod.Post, new { id = "updateform" }))
+{
+    //Submit
+    <button class="formSubmitButton">Submit Changes</button>
+    <div id="storageDEtable">
+        <table id="dataentrytable">
+            <tr class="dilutionrow">
+                <td class="dilutionrow"></td>
+                <td class="dilutionrow"></td>
+                <td class="dilutionrow"></td>
+                <td class="dilutionrow"></td>
+                <td class="dilutionrow"></td>
+                <td class="dilutionrow"></td>
+                <td class="dilutionrow"></td>
+                <td class="dilutionrow"></td>
+                <td class="dilutionrow"></td>
+                <td class="dilutionrow" colspan="2">Dilution Series(Full Strength TSB)</td>
+            </tr>
+            @*table header cells*@
+            <tr class="dataentryheaders">
+                <th>Dataset ID</th>
+                <th>Created</th>
+                <th>Strain</th>
+                <th>Form Treatment</th>
+                <th>Rep</th>
+                <th>Pre-Activation Age (wks)</th>
+                <th>Temp (C)</th>
+                <th>Days Post Activation</th>
+                <th>Notes</th>
+                <th>0</th>
+                <th>-1</th>
+                <th>-2</th>
+                <th>-3</th>
+                <th>-4</th>
+                <th>-5</th>
+                <th>-6</th>
+                <th>-7</th>
+            </tr>
+
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    @*two hidden td cells: one to capture whether a row was edited and the other to preserve the row ID in the model *@
+                    <td class="cellUpdate" hidden>@Html.TextAreaFor(model => model[i].Changed)</td>
+                    <td class="xxx" hidden>@Html.TextAreaFor(model => model[i].DatadsetId)</td>
+                    <td hidden>@Html.EditorFor(model => model[i].Id, new { htmlAttributes = new { @Value = Model[i].Id } })</td>
+                    @*display only fields*@
+                    <td class="modelDatasetID">@Model[i].DatadsetId</td>
+                    <td>@Model[i].CreatedDate.ToShortDateString()</td>
+                    <td>@Model[i].Strain</td>
+                    <td>@Model[i].FormTreatment</td>
+                    <td>@Model[i].Rep</td>
+                    <td>@Model[i].PreactivationAge</td>
+                    <td>@Model[i].Temp</td>
+                    <td>@Model[i].DPA</td>
+                    @*fields the technician can edit*@
+                    <td>
+                        @Html.EditorFor(model => model[i].Notes, new { htmlAttributes = new { @Value = Model[i].Notes } })
+                    </td>
+                    @for (int j = 0; j < Model[i].DilutionResults.Count; j++)
+                    {
+                        <td>
+                            @Html.EditorFor(model => model[i].DilutionResults[j], new { htmlAttributes = new { @Value = Model[i].DilutionResults[j] } })
+
+                        </td>
+                    }
+
+
+                </tr>
+            }
+
+
+
+        </table>
+    </div>
+
+    //Submit
+    <button class="formSubmitButton">Submit Changes</button>
+}
+

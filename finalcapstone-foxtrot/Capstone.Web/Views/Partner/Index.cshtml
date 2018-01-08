@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body>
+    <h2 id="UserIndexHead">Partner Options</h2>
+    <a href="@Url.Action("CreatePartner", "Partner")" id="">Create Partner</a>
+    <a href="@Url.Action("AssignPartnerUser", "Partner")" id="">Assign Partner User</a>
+</body>

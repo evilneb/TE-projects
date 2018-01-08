@@ -1,0 +1,193 @@
+﻿@using Capstone.Web.Models.DataExplorationModels;
+
+@model List<BeadStabilityRowData>
+
+@{
+    ViewBag.Title = "BeadStability";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+
+    $(document).ready(function () {
+        $('#datasetexploration').DataTable({
+            dom: 'Blfrtip',
+            buttons: [
+                'copy', 'excel', 'pdf', 'csv'
+            ],
+
+
+
+
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                    var select = $('<select><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
+
+        });
+
+        $('tfoot > tr > td').appendTo('thead');
+
+
+    });
+</script>
+
+@* string strain, string dataset_id_1, string dataset_id_2, string hours, string formTreatment1, string formTreatment2 *@
+<h2 class="move-head">Bead Stability Data Exploration</h2>
+
+<div class="container">
+
+    <p id="cfuSearchFields">Enter a strain, dilution hours, data set IDs to compare, and formulation treatment(s) in the form to calculate and compare CFU values.</p>
+
+    <hr class="form-line" />
+
+    @using (Html.BeginForm("SummaryBeadStabilityView", "DataExploration"))
+    {
+        <input type="text" name="strain" placeholder="strain" />
+        <input type="text" name="hours" placeholder="Dilution Hour (ex. 1,6,24)" />
+        <input type="text" name="dataset_id_1" placeholder="dataset_id 1" />
+        <input type="text" name="dataset_id_2" placeholder="dataset_id 2" />
+        <input type="text" name="formTreatment1" placeholder="Formulation Treatment 1" />
+        <input type="text" name="formTreatment2" placeholder="Formulation Treatment 2" />
+        <button type="submit" value="Search Datasets">Compare Datasets</button>
+    }
+    <br />
+
+    <table id="datasetexploration" class="display" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Dataset ID</th>
+                <th>Strain</th>
+                <th>Formulation</th>
+                <th>Rep</th>
+                <th>Bead Age</th>
+                <th>Notes</th>
+                <th>1hr 0</th>
+                <th>1hr -1</th>
+                <th>1hr -2</th>
+                <th>1hr -3</th>
+                <th>1hr -4</th>
+                <th>1hr -5</th>
+                <th>1hr -6</th>
+                <th>1hr -7</th>
+                <th>6hr 0</th>
+                <th>6hr -1</th>
+                <th>6hr -2</th>
+                <th>6hr -3</th>
+                <th>6hr -4</th>
+                <th>6hr -5</th>
+                <th>6hr -6</th>
+                <th>6hr -7</th>
+                <th>6hr -8</th>
+                <th>24hr 0</th>
+                <th>24hr -1</th>
+                <th>24hr -2</th>
+                <th>24hr -3</th>
+                <th>24hr -4</th>
+                <th>24hr -5</th>
+                <th>24hr -6</th>
+                <th>24hr -7</th>
+                <th>Outlier</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@Model[i].Dataset_ID</td>
+                    <td>@Model[i].Strain</td>
+                    <td>@Model[i].FormulationTitration</td>
+                    <td>@Model[i].Rep</td>
+                    <td>@Model[i].BeadAge</td>
+                    <td>@Model[i].Notes</td>
+                    <td>@Model[i].Dil_1HR_Zero</td>
+                    <td>@Model[i].Dil_1HR_One</td>
+                    <td>@Model[i].Dil_1HR_Two</td>
+                    <td>@Model[i].Dil_1HR_Three</td>
+                    <td>@Model[i].Dil_1HR_Four</td>
+                    <td>@Model[i].Dil_1HR_Five</td>
+                    <td>@Model[i].Dil_1HR_Six</td>
+                    <td>@Model[i].Dil_1HR_Seven</td>
+                    <td>@Model[i].Dil_6HR_Zero</td>
+                    <td>@Model[i].Dil_6HR_One</td>
+                    <td>@Model[i].Dil_6HR_Two</td>
+                    <td>@Model[i].Dil_6HR_Three</td>
+                    <td>@Model[i].Dil_6HR_Four</td>
+                    <td>@Model[i].Dil_6HR_Five</td>
+                    <td>@Model[i].Dil_6HR_Six</td>
+                    <td>@Model[i].Dil_6HR_Seven</td>
+                    <td>@Model[i].Dil_6HR_Eight</td>
+                    <td>@Model[i].Dil_24HR_Zero</td>
+                    <td>@Model[i].Dil_24HR_One</td>
+                    <td>@Model[i].Dil_24HR_Two</td>
+                    <td>@Model[i].Dil_24HR_Three</td>
+                    <td>@Model[i].Dil_24HR_Four</td>
+                    <td>@Model[i].Dil_24HR_Five</td>
+                    <td>@Model[i].Dil_24HR_Six</td>
+                    <td>@Model[i].Dil_24HR_Seven</td>
+                    <td>@Model[i].Outlier</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tfoot>
+
+    </table>
+</div>

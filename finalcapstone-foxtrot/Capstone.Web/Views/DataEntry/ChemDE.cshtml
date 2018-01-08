@@ -1,0 +1,125 @@
+﻿@model List<Capstone.Web.Models.DataEntryModels.DE_ChemCompatibility>
+@{
+    ViewBag.Title = "ChemDE";
+}
+
+<h2>Data Entry: Chemical Compatibility</h2>
+
+@using (Html.BeginForm("DataEntryByDatasetId", "DataEntry", FormMethod.Post))
+{
+
+    <div>
+        <label>View One Dataset By ID</label>
+        <input type="text" name="userDatasetId" id="IP" />
+        <button class="formSubmitButton">Go</button>
+
+    </div>
+}
+
+
+<br />
+
+<script>
+
+    $(document).ready(function () {
+        $(document).keyup(function (e) {
+            switch (e.which) {
+                case 37: // left
+                    $(".move:focus").prev().focus();
+
+
+                    break;
+
+                case 38: // up
+                    break;
+
+                case 39: // right
+                    break;
+
+                case 40: // down
+                    break;
+
+                default: return; // exit this handler for other keys
+            }
+            e.preventDefault(); // prevent the default action (scroll / move caret)
+        });
+    });
+</script>
+
+@using (Html.BeginForm("ChemDE", "DataEntry", FormMethod.Post, new { id = "updateform" }))
+{
+    //Submit
+    <button class="formSubmitButton">Submit Changes</button>
+    <div id="chemDEtable">
+        <table id="dataentrytable">
+            <tr>
+                <td class="dilutionrow"></td>
+                <td class="dilutionrow"></td>
+                <td class="dilutionrow"></td>
+                <td class="dilutionrow"></td>
+                <td class="dilutionrow"></td>
+                <td class="dilutionrow"></td>
+                <td class="dilutionrow"></td>
+                <td class="dilutionrow" colspan="2">Dilution Series (Full Strength TSB)</td>
+            </tr>
+            @*table header cells*@
+            <tr class="dataentryheaders">
+                <th>Dataset ID</th>
+                <th>Created</th>
+                <th>Strain</th>
+                <th class="chemHeader">Chemical</th>
+                <th>Repetition</th>
+                <th>Rate Dilution</th>
+                <th id="column_0_row0">Notes</th>
+                <th id="column_1_row0">0</th>
+                <th id="column_2_row0">-1</th>
+                <th id="column_3_row0">-2</th>
+                <th id="column_4_row0">-3</th>
+                <th id="column_5_row0">-4</th>
+                <th id="column_6_row0">-5</th>
+                <th id="column_7_row0">-6</th>
+                <th id="column_8_row0">-7</th>
+            </tr>
+
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    @*two hidden td cells: one to capture whether a row was edited and the other to preserve the row ID in the model *@
+                    <td class="cellUpdate" hidden>@Html.TextAreaFor(model => model[i].Changed)</td>
+                    <td hidden>@Html.EditorFor(model => model[i].Id, new { htmlAttributes = new { @Value = Model[i].Id } })</td>
+                    @*display only fields*@
+                    
+                    <td>@Model[i].DatadsetId</td>
+                    <td>@Model[i].CreatedDate.ToShortDateString()</td>
+                    <td>@Model[i].Strain</td>
+                    <td>@Model[i].Chemical</td>
+                    <td>@Model[i].Rep</td>
+                    <td>@Model[i].RateDilution</td>
+                    @*fields the technician can edit*@
+                    @{ string cellId = "column_0_row" + i.ToString();}
+                    <td id=cellId>
+                       
+                        @Html.EditorFor(model => model[i].Notes, new { htmlAttributes = new { @Value = Model[i].Notes } })
+                    </td>
+                    @for (int j = 0; j < Model[i].DilutionResults.Count; j++)
+                    {
+                        string dilutionId = "column_" + (j + 1).ToString() +"_row" + i.ToString();
+                        <td id=dilutionId>
+                            @Html.EditorFor(model => model[i].DilutionResults[j], new { htmlAttributes = new { @Value = Model[i].DilutionResults[j] } })
+
+                        </td>
+                    }
+
+
+                </tr>
+            }
+
+
+
+        </table>
+    </div>
+
+    //Submit
+    <button class="formSubmitButton">Submit Changes</button>
+}
+

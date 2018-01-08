@@ -1,0 +1,33 @@
+﻿@model Capstone.Web.Models.AssignPartnerUser
+
+@{
+    ViewBag.Title = "Assign User To Partner";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="move-head" id="UserToPartnerHead">Assign User To A Partner</h2>
+<div class="container form-create-template">
+    <hr class="form-line" />
+    @using (Html.BeginForm("AssignPartnerUser", "Partner", FormMethod.Post))
+    {
+        <div class="form-group">
+            @Html.Label("User", "Choose a USER to assign a partner to:")<br />
+            @Html.DropDownListFor(m => m.User, Model.UserDropDownList, string.Empty)<br />
+        </div>
+
+        @*<p><em>Only users assigned a partner role are able to be assigned to a Partner.<br />
+            <a href="@Url.Action("AdminDetail", "User")" id="">Click here to assign a user to a partner role.</a></em></p>*@
+        <br />
+        <div class="form-group">
+            @Html.Label("Partner", "Choose a PARTNER to assign to the user you selected above:")<br />
+            @Html.DropDownListFor(m => m.Partner, Model.PartnerDropDownList, string.Empty)<br />
+        </div>
+        <br />
+        <div class="form-group">
+            <div>
+                <input type="submit" value="Assign Partner User" class="form-btn-submit admin-btn-margin" />
+            </div>
+        </div>
+    }
+    <hr class="form-end-line" />
+</div>

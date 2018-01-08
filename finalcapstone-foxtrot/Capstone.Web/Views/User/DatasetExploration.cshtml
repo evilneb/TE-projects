@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "DatasetExploration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Capstone.Web.Models.ExperimentForms
+@model StroageStabilityExperimentData
+
+<h2>Dataset Exploration</h2>
+
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#datasetexploration').DataTable();
+    });
+</script>
+
+@* Update link below when researcher page is added! *@
+@Html.ActionLink("Return to Research Page", "Index", "User") 
+<table id="datasetexploration" class="display" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Strain</th>
+            <th>Formulation</th>
+            <th>Rep</th>
+            <th>Pre-Activation Age</th>
+            <th>Temperature</th>
+            <th>DPA</th>
+            <th>0</th>
+            <th>-1</th>
+            <th>-2</th>
+            <th>-3</th>
+            <th>-4</th>
+            <th>-5</th>
+            <th>-6</th>
+            <th>-7</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Dil_Zero.Count; i++)
+        {
+            <tr>
+                <td>@Model.Strain</td>
+                <td>@Model.FormTreatments[i]</td>
+                <td>@Model.Reps</td>
+                <td>@Model.PreActivationAges[i]</td>
+                <td>@Model.TempdegreesCelsius</td>
+                <td>@Model.DPAs[i]</td>
+                <td>@Model.Dil_Zero[i]</td>
+                <td>@Model.Dil_One[i]</td>
+                <td>@Model.Dil_Two[i]</td>
+                <td>@Model.Dil_Three[i]</td>
+                <td>@Model.Dil_Four[i]</td>
+                <td>@Model.Dil_Five[i]</td>
+                <td>@Model.Dil_Six[i]</td>
+                <td>@Model.Dil_Seven[i]</td>
+                <td>@Model.Notes[i]</td>
+            </tr>
+        }
+    </tbody>
+</table>

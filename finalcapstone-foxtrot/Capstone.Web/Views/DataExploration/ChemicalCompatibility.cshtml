@@ -1,0 +1,137 @@
+﻿@using Capstone.Web.Models.DataExplorationModels;
+
+@model List<ChemicalCompatibility>
+
+
+@{
+    ViewBag.Title = "ChemcialCompatibility";
+
+}
+
+<h2>Data Exploration: Chemical Compatibility </h2>
+
+<script>
+
+    $(document).ready(function () {
+        $('#datasetexploration').DataTable({
+            dom: 'Blfrtip',
+            buttons: [
+                'copy', 'excel', 'pdf', 'csv'
+            ],
+
+
+
+
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                    var select = $('<select><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
+
+        });
+
+        $('tfoot > tr > td').appendTo('thead');
+
+
+    });
+
+
+</script>
+
+
+@Html.ActionLink("Return to Main Data Exploration Page", "Index", "DataExploration")
+
+<p id="cfuSearchFields">Enter a strain, dilution rate, data set ID to, and tw chemicals in the form to calculate and compare CFU values.</p>
+
+@using (Html.BeginForm("SummaryChemicalCompatibility", "DataExploration"))
+{
+    <input type="text" name="strain" placeholder="strain" />
+    <input type="text" name="dataset_id" placeholder="dataset_id" />
+    <input type="text" name="chemical1" placeholder="Chemical 1 to Compare" />
+    <input type="text" name="chemical2" placeholder="Chemical 2 to Compare" />
+    <input type="text" name="rate_dil" placeholder="Dilution Rate (Ex. 1/2X or 2X)" />
+    <button type="submit" value="Search Datasets">Compare Datasets</button>
+}
+
+<table id="datasetexploration" class="display" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Dataset ID</th>
+            <th>Strain</th>
+            <th>Chemical</th>
+            <th>Rep</th>
+            <th>Rate Dilution</th>
+            <th>Notes</th>
+            <th>0</th>
+            <th>-1</th>
+            <th>-2</th>
+            <th>-3</th>
+            <th>-4</th>
+            <th>-5</th>
+            <th>-6</th>
+            <th>-7</th>
+            <th>Outlier</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td>@Model[i].Dataset_ID</td>
+                <td>@Model[i].Strain</td>
+                <td>@Model[i].Chemical</td>
+                <td>@Model[i].Rep</td>
+                <td>@Model[i].Rate_Dilution</td>
+                <td>@Model[i].Notes</td>
+                <td>@Model[i].Dil_Zero</td>
+                <td>@Model[i].Dil_One</td>
+                <td>@Model[i].Dil_Two</td>
+                <td>@Model[i].Dil_Three</td>
+                <td>@Model[i].Dil_Four</td>
+                <td>@Model[i].Dil_Five</td>
+                <td>@Model[i].Dil_Six</td>
+                <td>@Model[i].Dil_Seven</td>
+                <td>@Model[i].Outlier</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+            <td></td>
+            <td></td>
+            <td></td>
+            
+        </tr>
+    </tfoot>
+
+</table>

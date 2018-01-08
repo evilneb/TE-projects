@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Admin";
+}
+
+<body>
+
+    <h2 id="AdminDetailHead">Admin Options</h2>
+
+    <div>
+        <a href="@Url.Action("CreateUser", "User")" id="CreateUserLink">Create User</a>
+    </div>
+    <div>
+        @*<a href="@Url.Action("RemoveUser", "User")" id="RemoveUserLink">Remove User</a>*@
+    </div>
+    <div>
+        @*<a href="@Url.Action("AddRemoveExistingUserRoles", "User")" id="">Add and Remove An Existing User's Roles</a>*@
+    </div>
+    <div>
+        <a href="@Url.Action("AdminChangeUserPassword", "User")" id="ChangePasswordLink">Change a User's Password</a>
+    </div>
+    <div>
+        <a href="@Url.Action("CreatePartner", "Partner")" id="CreatePartnerLink">Create Partner</a>
+    </div>
+    <div>
+        @Html.ActionLink("Assign User to Partner", "AssignPartnerUser", "Partner", null, new { id = "AssignPartnerUserLink" })
+    </div>
+</body>
+
+

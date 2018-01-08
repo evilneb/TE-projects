@@ -1,0 +1,142 @@
+﻿@using Capstone.Web.Models.DataExplorationModels
+@{
+    ViewBag.Title = "Dataset Exploration";
+}
+
+@model List<StorageStabilityExperimentData>
+
+<script>
+
+    $(document).ready(function () {
+        $('#datasetexploration').DataTable({
+            dom: 'Blfrtip',
+            buttons: [
+                'copy', 'excel', 'pdf', 'csv'
+            ],
+
+
+
+
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                    var select = $('<select><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
+
+        });
+
+        $('tfoot > tr > td').appendTo('thead');
+
+
+    });
+
+
+</script>
+
+<h2 class="move-head">Data Exploration: Storage Stability</h2>
+
+<div class="container">
+
+    <p id="cfuSearchFields">Enter a strain, days post activitation value, and data set ID in the form to calculate and compare CFU values.</p>
+
+    <hr class="form-line" />
+
+    @using (Html.BeginForm("SummaryStroageStabilityView", "DataExploration"))
+    {
+        <input type="text" name="strain" placeholder="strain" />
+        <input type="text" name="dpa" placeholder="dpa" />
+        <input type="text" name="dataset_id" placeholder="dataset_id" />
+        <button type="submit" value="Search Datasets">Search Datasets</button>
+    }
+    <br />
+
+    <table id="datasetexploration" class="display" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Dataset ID</th>
+                <th>Strain</th>
+                <th>Formulation</th>
+                <th>Rep</th>
+                <th>Pre-Activation Age</th>
+                <th>Temperature</th>
+                <th>DPA</th>
+                <th>Notes</th>
+                <th>0</th>
+                <th>-1</th>
+                <th>-2</th>
+                <th>-3</th>
+                <th>-4</th>
+                <th>-5</th>
+                <th>-6</th>
+                <th>-7</th>
+                <th>Outlier</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@Model[i].Dataset_ID</td>
+                    <td>@Model[i].Strain</td>
+                    <td>@Model[i].FormTreatments</td>
+                    <td>@Model[i].Rep</td>
+                    <td>@Model[i].PreActivationAges</td>
+                    <td>@Model[i].Temp</td>
+                    <td>@Model[i].DPA</td>
+                    <td>@Model[i].Notes</td>
+                    <td>@Model[i].Dil_Zero</td>
+                    <td>@Model[i].Dil_One</td>
+                    <td>@Model[i].Dil_Two</td>
+                    <td>@Model[i].Dil_Three</td>
+                    <td>@Model[i].Dil_Four</td>
+                    <td>@Model[i].Dil_Five</td>
+                    <td>@Model[i].Dil_Six</td>
+                    <td>@Model[i].Dil_Seven</td>
+                    <td>@Model[i].Outlier</td>
+                </tr>
+            }
+        </tbody>
+
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tfoot>
+    
+</table>
+
+</div>

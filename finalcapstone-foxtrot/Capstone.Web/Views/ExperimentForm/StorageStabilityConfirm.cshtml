@@ -1,0 +1,15 @@
+﻿@model Capstone.Web.Models.ExperimentForms.StorageStabilityForm
+@{
+    ViewBag.Title = "StorageStabilityConfirm";
+}
+@{ 
+    int formID = -1;
+    if (Session["lastSavedFormID"] != null)
+    {
+        formID = (int)Session["lastSavedFormID"];
+    }
+}
+<h3>You have successfully created a template form for a Storage Stability Dataset.</h3>
+
+<p class="feedback-text">Storage Stability Dataset ID#: @formID</p>
+

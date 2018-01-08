@@ -1,0 +1,61 @@
+﻿@model Capstone.Web.Models.ExperimentForms.BeadStabilityForm
+@{
+    ViewBag.Title = "CreateBeadStabilityForm";
+}
+
+
+<h2 class="move-head">Create New Bead Stability Dataset</h2>
+
+
+<div class="container form-create-template">
+
+<hr class="form-line" />
+
+    @using (Html.BeginForm("CreateBeadStabilityForm", "ExperimentForm", FormMethod.Post))
+    {
+
+        <div class="form-group formInputGroup">
+            @Html.Label("Strain", "Strain:")<br />
+            @Html.EditorFor(Model => Model.Strain, new { htmlAttributes = new { @class = "textbox" } })
+            @Html.ValidationMessageFor(Model => Model.Strain)
+        </div>
+
+        @Html.Label("FormTreatments", "Formulation Treatment(s):")
+        <div id="formTreatmentDiv">
+        </div>
+        <div>
+            <button class="form-btn" id="btnAddFormTreatment" type="button">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Add Formulation Treatment
+            </button>
+        </div>
+
+        <div class="formInputGroup form-input-spacing">
+            @Html.Label("TotalReps", "Number of repetitions:")<br />
+            @Html.TextBoxFor(m => m.TotalReps, new { @class = "textbox" })
+            @Html.ValidationMessageFor(Model => Model.TotalReps)<br />
+        </div>
+        <div class="formInputGroup form-input-spacing">
+            @Html.Label("NumPerRep", "Number of plates per repetition:")<br />
+            @Html.TextBoxFor(m => m.NumPerRep, new { @class = "textbox" })
+            @Html.ValidationMessageFor(Model => Model.NumPerRep)<br />
+        </div>
+
+        @Html.Label("AgeOfBeads", "Age of Beads (in weeks):")
+
+        <div id="ageOfBeadsDiv">
+        </div>
+
+        <div>
+            <button class="form-btn" id="btnAgeOfBeads" type="button">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Add Age of Beads (wk)
+            </button>
+        </div>
+        <button class="formSubmitButton form-btn-submit xp-btn-margin">Submit</button><br />
+    }
+
+    <hr class="form-end-line" />
+    <p class="form-cancel-spacing">@Html.ActionLink("Back to Form Index (Cancel Form)", "Index", "ExperimentForm")</p>
+
+</div>

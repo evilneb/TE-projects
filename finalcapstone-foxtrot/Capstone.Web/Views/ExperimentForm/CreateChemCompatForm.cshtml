@@ -1,0 +1,64 @@
+﻿@model Capstone.Web.Models.ExperimentForms.ChemCompatForm
+@{
+    ViewBag.Title = "CreateChemCompatForm";
+}
+
+
+<h2 class="move-head">Create New Chemical Compatibility Dataset</h2>
+
+<div class="container form-create-template">
+
+
+<hr class="form-line" />
+
+    @using (Html.BeginForm("CreateChemCompatForm", "ExperimentForm", FormMethod.Post))
+    {
+        //Strain input
+        <div class="form-group formInputGroup">
+            @Html.Label("strain", "Strain:")<br />
+            @Html.EditorFor(Model => Model.Strain, new { htmlAttributes = new { @class = "textbox" } })
+            @Html.ValidationMessageFor(Model => Model.Strain)
+        </div>
+
+        //Chemicals input DYNAMIC
+        @Html.Label("chemicals", "Chemical:")
+
+        <div id="chemicalsDiv">
+        </div>
+
+        <div>
+            <button class="form-btn" id="btnChemicals" type="button">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Add chemical
+            </button>
+            @Html.ValidationMessageFor(Model => Model.Chemicals)
+        </div>
+
+        //Reps input
+        <div class="form-group formInputGroup form-input-spacing">
+            @Html.Label("Reps", "Number of repetitions:")<br />
+            @Html.TextBoxFor(m => m.Reps, new { @class = "textbox" })
+            @Html.ValidationMessageFor(Model => Model.Reps)
+        </div>
+
+        //Rate dilutions input DYNAMIC
+        @Html.Label("rateDilution", "Rate dilution:")
+
+        <div id="rateDilutionDiv">
+        </div>
+
+        <div>
+            <button class="form-btn" id="btnRateDilution" type="button">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Add rate dilution
+            </button>
+            @Html.ValidationMessageFor(Model => Model.RateDilutions)
+        </div>
+        //Submit
+        <button class="formSubmitButton form-btn-submit xp-btn-margin">Submit</button>
+    }
+
+    <hr class="form-end-line" />
+    <p class="form-cancel-spacing">@Html.ActionLink("Back to Form Index (Cancel Form)", "Index", "ExperimentForm")</p>
+
+</div>

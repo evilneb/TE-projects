@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Data Exploration Main Page</h2>
+<h3>Select an Experiment Type:</h3>
+<div>
+    <a href="@Url.Action("StorageStability", "DataExploration")" id="SSDataExploration">Storage Stability</a>
+</div>
+
+<div>
+    <a href="@Url.Action("BeadStability", "DataExploration")" id="BSDataExploration">Bead Stability</a>
+</div>
+
+<div>
+    <a href="@Url.Action("ChemicalCompatibility", "DataExploration")" id="CCDataExploration">Chemical Compatibilty</a>
+</div>
+

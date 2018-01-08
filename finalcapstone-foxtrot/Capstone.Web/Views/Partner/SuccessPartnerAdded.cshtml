@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Success Partner Added";
+}
+
+@using Capstone.Web.Models
+@model Partner
+
+<div class="container feedback-view row" id="successmessage2">
+    <h3>Success! New Partner Confirmation</h3>
+
+    <p class="feedback-text">
+        You successfully added: @Model.PartnerName <br>
+    </p>
+    <div class="feedback-btn-margin" id="successlink2">
+        @Html.ActionLink("Add another partner", "CreatePartner", "Partner", null, new { @class = "form-btn-submit" })
+    </div>
+</div>

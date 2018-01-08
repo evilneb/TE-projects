@@ -1,0 +1,133 @@
+﻿@using Capstone.Web.Models.DataExplorationModels;
+@using System.Collections.Generic;
+@model List<List<ChemicalCompatibility>>
+
+@{
+    ViewBag.Title = "SummaryChemicalCompatibilityView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Summary Chemical Compatibility</h2>
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#ccsummaryData').DataTable();
+    });
+</script>
+
+<h3>Strain: @Model[0][0].Strain            Dilution Rate: @Model[0][0].Rate_Dilution</h3>
+
+
+
+<table id="ccsummaryData">
+    @* Body of summary table below *@
+    @{ int lastRowIndex = CFUSummaryDataCalculationForChemicalCompatibility.FindLengthOfSublistAmountsPerSublist(Model[0]);
+        int subListCount = 0;
+    }
+
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <tr>
+            <td>
+                @Model[i][0].Chemical
+            </td>
+            @{double averageCFUForSubList = 0;
+            }
+            @{int countOfAdditions = 0;
+            }
+            @for (int j = 0; j < CFUSummaryDataCalculationForChemicalCompatibility.FindRepitionAmountPerSublist(Model[i]); j++)
+            {
+                averageCFUForSubList = 0;
+                countOfAdditions = 0;
+
+                if (!Model[j][lastRowIndex].Dil_Zero.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_Zero) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_Zero);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_One.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_One) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_One);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_Two.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_Two) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_Two);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_Three.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_Three) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_Three);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_Four.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_Four) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_Four);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_Five.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_Five) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_Five);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_Six.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_Six) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_Six);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_Seven.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_Seven) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_Seven);
+                        countOfAdditions++;
+                    }
+                }
+
+            }
+            @if (countOfAdditions == 0)
+            {
+                <td>0</td>
+            }
+            else
+            {
+                double printValue = (double)((double)averageCFUForSubList / (double)countOfAdditions);
+                string valueToPrint = printValue.ToString("0.00E0");
+                <td>
+                    @valueToPrint
+                </td>
+
+            }
+            @{subListCount++;
+            }
+
+        </tr>
+                }
+</table>
+
+@Html.ActionLink("Return to Chemical Compatibility Data Exploration", "ChemicalCompatibility", "DataExploration")
+

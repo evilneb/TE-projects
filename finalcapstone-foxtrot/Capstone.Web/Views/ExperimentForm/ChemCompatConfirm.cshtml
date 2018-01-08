@@ -1,0 +1,16 @@
+﻿@model Capstone.Web.Models.ExperimentForms.ChemCompatForm
+@{
+    ViewBag.Title = "ChemCompatConfirm";
+}
+@{
+    int formID = -1;
+    if (Session["lastSavedFormID"] != null)
+    {
+        formID = (int)Session["lastSavedFormID"];
+    }
+}
+<h3>You have successfully created a template form for a Chemical Compatibility Dataset.</h3>
+
+<p class="feedback-text">Chemical Compatibility Dataset ID#: @formID</p>
+
+

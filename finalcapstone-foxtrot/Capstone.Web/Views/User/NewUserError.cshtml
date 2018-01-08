@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Error";
+
+}
+<div class="container feedback-view">
+    <h3 id="PassChangeErrorHead">Error</h3>
+    <p class="feedback-text">
+        The user was not created. That username already exists. <br />
+    </p>
+
+    <div class="feedback-btn-margin">
+        @Html.ActionLink("Try Again", "CreateUser", "User", null, new { @class = "form-btn-submit" })
+    </div>
+</div>

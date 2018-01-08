@@ -1,0 +1,173 @@
+﻿
+@{
+    Layout = null;
+}
+@using Capstone.Web.Models
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale =1">
+
+    @*Bootstrap, FontAwesome, GoogleFonts, DataTables Our CSS*@
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/font-awesome.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Ropa+Sans" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.16/b-1.4.2/b-colvis-1.4.2/b-flash-1.4.2/b-html5-1.4.2/datatables.min.css" />
+    <link href="~/Content/foxtrot.css" rel="stylesheet" />
+
+
+    @*jQuery scripts*@
+    <script src="~/Scripts/jquery-3.2.1.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    @*Bootstrap Js & Custom Scrollbar Js CDN*@
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.16/b-1.4.2/b-colvis-1.4.2/b-flash-1.4.2/b-html5-1.4.2/datatables.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-experimentForm.js"></script>
+    <script src="~/Scripts/jquery-layout.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+
+    @{bool isAdmin = false;
+        bool isResearcher = false;
+        bool isTech = false;
+        bool isPartner = false;
+        string username = "";
+        if (Session["currentUser"] != null)
+        {
+            isAdmin = (Session["currentUser"] as User).Administrator;
+            isResearcher = (Session["currentUser"] as User).Researcher;
+            isTech = (Session["currentUser"] as User).Technician;
+            isPartner = (Session["currentUser"] as User).Partneruser;
+            username = (Session["currentUser"] as User).Username;
+        };
+    }
+</head>
+
+<body>
+    <div class="page-container">
+        @*Top Navbar*@
+        <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+            <div class="container">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="username">hello @username &nbsp; &nbsp; &nbsp; &nbsp;|</li>
+                    <li class="logout">@Html.ActionLink("logout", "Index", "Home")</li>
+                </ul>
+            </div>
+        </nav>
+        <div id="wrapper">
+
+            @*Sidebar*@
+            <div id="sidebar">
+
+                @*Sidebar Header*@
+                <div class="sidebar-header">
+                    <img src="~/Content/images/3bar_white.png" alt="3bar logo" width="80" />
+                </div>
+
+                @*Sidebar Links*@
+
+                <ul class="list-unstyled components">
+
+                    <li>
+                        @*Link with dropdown items*@
+
+                        @if (isResearcher || isAdmin)
+                        {
+
+                        <li>
+                            <hr class="hr-custom" />
+                            <a href="#researcherSubmenu" data-toggle="collapse" aria-expanded="false">
+                                <i class="fa fa-plus-square-o icon-spaced" aria-hidden="true"></i>
+                                <span>New Dataset Form</span>
+                            </a>
+                            <ul class="collapse list-unstyled" id="researcherSubmenu">
+
+
+                                <li>@Html.ActionLink("New Storage Stability Form", "CreateStorageStabilityForm", "ExperimentForm")</li>
+                                <li>@Html.ActionLink("New Bead Stability Form", "CreateBeadStabilityForm", "ExperimentForm")</li>
+                                <li>@Html.ActionLink("New Chem Compatiblity Form", "CreateChemCompatForm", "ExperimentForm")</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("DatasetInfo", "ExperimentForm")">
+                                <i class="fa fa-pencil-square-o icon-spaced" aria-hidden="true"></i>
+                                <span>View & Edit Dataset Info</span>
+                            </a>
+                        </li>
+                        }
+
+                        @if (isAdmin || isResearcher || isPartner)
+                        {
+                            <li>
+                                <a href="#exploreSubmenu" data-toggle="collapse" aria-expanded="false">
+                                    <i class="fa fa-search-plus icon-spaced" aria-hidden="true"></i>
+                                    <span>Explore Data</span>
+                                </a>
+                                <ul class="collapse list-unstyled" id="exploreSubmenu">
+                                    <li>@Html.ActionLink("Explore Storage Stability", "StorageStability", "DataExploration")</li>
+                                    <li>@Html.ActionLink("Explore Bead Stability", "BeadStability", "DataExploration")</li>
+                                    <li>@Html.ActionLink("Explore Chem Compatibility", "ChemicalCompatibility", "DataExploration")</li>
+                                </ul>
+                            </li>
+                        }
+
+                    </ul>
+
+                    @if (isAdmin || isResearcher || isTech)
+                    {
+                        <hr class="hr-custom" />
+
+                        <ul class="list-unstyled components">
+                            <li>
+                                <a href="#dataEntrySubmenu" data-toggle="collapse" aria-expanded="false">
+                                    <i class="fa fa-table icon-spaced" aria-hidden="true"></i>
+                                    <span>Enter Dataset Results</span>
+                                </a>
+                                <ul class="collapse list-unstyled" id="dataEntrySubmenu">
+                                    <li>@Html.ActionLink("Storage Stability Data Entry", "StorageDE", "DataEntry")</li>
+                                    <li>@Html.ActionLink("Bead Stability Data Entry", "BeadDE", "DataEntry")</li>
+                                    <li>@Html.ActionLink("Chem Compatibility Data Entry", "ChemDE", "DataEntry")</li>
+                                </ul>
+                        </ul>
+
+                    }
+                    @if (isAdmin)
+                    {
+                        <hr class="hr-custom" />
+                        <ul class="list-unstyled components">
+                            <li>
+                                <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="false">
+                                    <i class="fa fa-cog icon-spaced" aria-hidden="true"></i>
+                                    <span>Admin Options</span>
+                                </a>
+                                <ul class="collapse list-unstyled" id="adminSubmenu">
+                                    <li>@Html.ActionLink("Create User", "CreateUser", "User")</li>
+                                    <li>@Html.ActionLink("Change a User's Password", "AdminChangeUserPassword", "User")</li>
+                                    <li>@Html.ActionLink("Create Partner", "CreatePartner", "Partner")</li>
+                                    <li>@Html.ActionLink("Assign User to Partner", "AssignPartnerUser", "Partner")</li>
+                                </ul>
+                        </ul>
+                    }
+                </div>
+
+                @*Hamburger Toggle*@
+                <div id="content">
+                    <div class="container">
+                        <button type="button" id="sidebarCollapse" class="navbar-btn">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                        @RenderBody()
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

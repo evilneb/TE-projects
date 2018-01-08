@@ -1,0 +1,72 @@
+﻿
+﻿@using Capstone.Web.Models;
+
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+@model User
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale =1">
+    <title>_Layout</title>
+    @*Bootstrap, FontAwesome, GoogleFonts CSS*@
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/css/font-awesome.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Ropa+Sans" rel="stylesheet">
+    @*Our Custom CSS*@
+    <link href="~/Content/foxtrot.css" rel="stylesheet" />
+    @*jQuery scripts*@
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    @*Bootstrap Js*@
+    <script src="bootstrap.min.js"></script>
+</head>
+<body class="background-img">
+
+        @using (Html.BeginForm("Index", "Home"))
+        {
+
+            <div class="container">
+                <div class="login-wrap">
+                    <div class="login-html">
+                        <img class="login-logo" src="~/Content/images/3bar_web_logo.png" />
+                        <table class="login-table">
+                            <tr type="text" id="user">
+                                <td class="login-td">
+                                    <i class="fa fa-user-o fa-custom fa-lg" aria-hidden="true"></i>
+                                </td>
+                                <td class="login-td">
+                                    @Html.EditorFor(m => m.Username, new { htmlAttributes = new { placeholder = "username", @class = "login-input" } })
+                                </td>
+                            </tr>
+                            <tr type="password" id="pass">
+                                <td class="login-td">
+                                    <i class="fa fa-lock fa-custom fa-lg" aria-hidden="true"></i>
+                                </td>
+                                <td class="login-td">
+                                    @Html.EditorFor(m => m.Password, new { htmlAttributes = new { placeholder = "password", @class = "login-input", type = "password" } })
+                                </td>
+                            <tr class="row">
+                                <td class="login-td">
+                                    <button class="login-button">Sign In</button>
+                                    <p class="login-error-message">@Html.ValidationMessageFor(m => m.Username)</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        }
+
+</body>
+</html>
+

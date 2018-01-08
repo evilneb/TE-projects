@@ -1,0 +1,15 @@
+﻿@model Capstone.Web.Models.ExperimentForms.BeadStabilityForm
+@{
+    ViewBag.Title = "BeadStabilityConfirm";
+}
+@{
+    int formID = -1;
+    if (Session["lastSavedFormID"] != null)
+    {
+        formID = (int)Session["lastSavedFormID"];
+    }
+}
+<h2>You have successfully created a template form for a Bead Stability Dataset.</h2>
+
+<p class="success-text">Bead Stability Dataset ID#: @formID</p>
+

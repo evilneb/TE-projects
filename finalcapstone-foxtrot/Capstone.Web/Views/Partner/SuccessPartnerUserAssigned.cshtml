@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "SuccessPartnerUserAssigned";
+}
+@model Capstone.Web.Models.AssignPartnerUser
+
+
+<div class="container feedback-view row" id="successmessage2">
+    <h3>User-Partner Assignment Confirmation</h3>
+    <p class="feedback-text">
+        @Model.User has been assigned to @Model.Partner<br />
+    </p>
+    <div class="row feedback-btn-margin" id="successlink2">
+        @Html.ActionLink("Assign another user to a partner", "AssignPartnerUser", "Partner", null, new { id = "BackToAdmin2", @class = "form-btn-submit" })
+    </div>
+</div>

@@ -1,0 +1,77 @@
+﻿@model Capstone.Web.Models.ExperimentForms.StorageStabilityForm
+@{
+    ViewBag.Title = "CreateStorageStabilityForm";
+}
+
+<h2 class="move-head">Create New Storage Stability Dataset</h2>
+
+<div class="container form-create-template">
+
+<hr class="form-line" />
+
+    @using (Html.BeginForm("CreateStorageStabilityForm", "ExperimentForm", FormMethod.Post))
+    {
+        <div class="form-group formInputGroup">
+            @Html.Label("strain", "Strain:")<br />
+            @Html.EditorFor(Model => Model.Strain, new { htmlAttributes = new { @class = "textbox" } })
+            @Html.ValidationMessageFor(Model => Model.Strain)
+        </div>
+
+
+        @Html.Label("formTreatment", "Form Treatment(s):")
+
+        <div id="formTreatmentDiv">
+        </div>
+            <div>
+                <button class="form-btn" id="btnAddFormTreatment" type="button">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    Add form treatment type
+                </button>
+                @Html.ValidationMessageFor(Model => Model.FormTreatments)<br />
+            </div>
+            <div class="form-group formInputGroup form-input-spacing">
+                @Html.Label("Reps", "Number of repetitions:")<br />
+                @Html.TextBoxFor(m => m.Reps, new { @class = "textbox" })
+                @Html.ValidationMessageFor(Model => Model.Reps)<br />
+            </div>
+
+            @Html.Label("preActAge", "Pre-activation age(s) (in weeks):")
+
+            <div id="preActDiv">
+            </div>
+
+            <div>
+                <button class="form-btn" id="btnAddPreActAge" type="button">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    Add pre-activation age row
+                </button>
+                @Html.ValidationMessageFor(Model => Model.PreActivationAges)<br />
+            </div>
+
+
+            <div class="form-group formInputGroup form-input-spacing">
+                @Html.Label("Temp", "Temperature:")<br />
+                @Html.EditorFor(model => model.TempdegreesCelsius, new { htmlAttributes = new { @Value = "RT", @class= "textbox" } })
+                @Html.ValidationMessageFor(Model => Model.TempdegreesCelsius)<br />
+            </div>
+
+            @Html.Label("DPAs", "Days post activation:")
+
+            <div id="dpaDiv">
+            </div>
+
+            <div>
+                <button class="form-btn" id="btnDPA" type="button">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    Add days post activation row
+                </button>
+                @Html.ValidationMessageFor(Model => Model.DPAs)<br />
+            </div>
+
+            <button class="form-btn-submit xp-btn-margin">Submit</button><br />
+    }
+
+    <hr class="form-end-line" />
+    <p class="form-cancel-spacing">@Html.ActionLink("Back to Form Index (Cancel Form)", "Index", "ExperimentForm")</p>
+
+</div>

@@ -1,0 +1,156 @@
+﻿
+@{
+    string selectedStrain = (string)ViewData["strain"];
+    string selectedDPA = (string)ViewData["dpa"];
+
+    ViewBag.Title = "Summary Storage Stability";
+}
+
+@using Capstone.Web.Models.DataExplorationModels;
+@using System.Collections.Generic;
+@model List<List<StorageStabilityExperimentData>>
+
+
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#sssummaryData').DataTable();
+    });
+</script>
+
+<h2>Summary Storage Stability</h2>
+
+<h3>Strain: @Model[0][0].Strain DPA: @Model[0][0].DPA</h3>
+
+<table id="sssummaryData">
+    <thead>
+        @* Header of summary table below *@
+        <tr>
+            <th>Preactivation Weeks: </th>
+            @{List<int> preActivationWeekList = new List<int>();}
+            @foreach (List<StorageStabilityExperimentData> subList in Model)
+            {
+                if (preActivationWeekList.Contains(Convert.ToInt32(subList[0].PreActivationAges)))
+                {
+                    continue;
+                }
+                else
+                {
+                    preActivationWeekList.Add(Convert.ToInt32(subList[0].PreActivationAges));
+                }
+            }
+            @{preActivationWeekList.Sort(); }
+
+            @foreach (int element in preActivationWeekList)
+            {
+                <th>
+                    @element
+                </th>
+            }
+        </tr>
+    </thead>
+    @* Body of summary table below *@
+    @{ int lastRowIndex = Model[0].Count - 1;
+        int subListCount = 0;
+    }
+
+    @for (int i = 0; i < Model.Count; i += subListCount)
+    {
+        <tr>
+            <td>
+                @Model[i][0].FormTreatments
+            </td>
+            @for (int j = i; j < preActivationWeekList.Count+i; j++)
+            {
+                double averageCFUForSubList = 0;
+                int countOfAdditions = 0;
+
+                if (!Model[j][lastRowIndex].Dil_Zero.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_Zero) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_Zero);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_One.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_One) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_One);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_Two.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_Two) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_Two);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_Three.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_Three) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_Three);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_Four.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_Four) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_Four);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_Five.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_Five) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_Five);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_Six.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_Six) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_Six);
+                        countOfAdditions++;
+                    }
+                }
+                if (!Model[j][lastRowIndex].Dil_Seven.IsEmpty())
+                {
+                    if (Convert.ToDouble(Model[j][lastRowIndex].Dil_Seven) > 0)
+                    {
+                        averageCFUForSubList += Convert.ToDouble(Model[j][lastRowIndex].Dil_Seven);
+                        countOfAdditions++;
+                    }
+                }
+                if (countOfAdditions == 0)
+                {
+                    <td>0</td>
+                }
+                else
+                {
+                    double printValue = (double)((double)averageCFUForSubList / (double)countOfAdditions);
+                    string valueToPrint = printValue.ToString("0.00E0");
+                    <td>
+                        @valueToPrint
+                    </td>
+
+
+
+                }
+                subListCount++;
+            }
+        </tr>
+                    }
+</table>
+
+@Html.ActionLink("Return to Storage Stability Data Exploration", "StorageStability", "DataExploration")

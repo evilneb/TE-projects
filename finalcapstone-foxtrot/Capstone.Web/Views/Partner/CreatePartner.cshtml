@@ -1,0 +1,27 @@
+﻿@model Capstone.Web.Models.Partner
+@{
+    ViewBag.Title = "Add Partner";
+}
+
+<h2 class="move-head" id="CreatePartnerHead">Add Partner</h2>
+<div class="container form-create-template">
+    <hr class="form-line" />
+
+    @using (Html.BeginForm("CreatePartner", "Partner", FormMethod.Post))
+    {
+            <div class="row">
+                <div class="form-group col-lg-12">
+                    @Html.Label("PartnerName")<br />
+                    @Html.TextBoxFor(m => m.PartnerName, new { placeholder = "Partner Name", @class = "textbox " })<br />
+                    @Html.ValidationMessageFor(m => m.PartnerName, null, new { @class = "error-message" })<br />
+                    <p class="error-message">@ViewBag.ErrorMessage</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-12">
+                    <button class="form-btn-submit admin-btn-margi">Add Partner</button>
+                </div>
+            </div>
+    }
+</div>
+

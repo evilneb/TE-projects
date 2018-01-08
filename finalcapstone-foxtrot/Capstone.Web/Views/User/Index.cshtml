@@ -1,0 +1,18 @@
+﻿@using Capstone.Web.Models;
+@{
+    ViewBag.Title = "Admin";
+}
+
+@{ User currentUser = Session["currentUser"] as User; }
+<body>
+    
+    <div class="container">
+        <div>
+
+            <h2 class="move-head">Welcome, @currentUser.Username!</h2>
+            <hr class="form-line" />
+        </div>
+    </div>
+</body>
+
+
